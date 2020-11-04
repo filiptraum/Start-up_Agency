@@ -1,8 +1,9 @@
   document.addEventListener("DOMContentLoaded", () => {
-      function gabmurgerFunc(gamburderSelector, navigationSelector) {
+      function gabmurgerFunc(gamburderSelector, navigationSelector, itemsSelector) {
 
     const gamburger = document.querySelector(gamburderSelector);
     const navigation = document.querySelector(navigationSelector);
+    const items = document.querySelectorAll(itemsSelector);
 
     let menuOpen = false;
     gamburger.addEventListener('click', () => {
@@ -16,8 +17,16 @@
         navigation.classList.remove('open');
       }
     });
+
+    items.forEach((item) => {
+      item.addEventListener("click", () => {
+        gamburger.classList.remove('open');
+        menuOpen = false;
+        navigation.classList.remove('open');
+      });
+    });
   }
-  gabmurgerFunc(".gamburger", ".header-menu");;
+  gabmurgerFunc(".gamburger", ".header-menu", ".header-menu__item");;
 
     function scrollUp() {
   let wrapper = document.querySelector('.wrapper');
