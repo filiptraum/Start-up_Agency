@@ -1,94 +1,94 @@
   document.addEventListener("DOMContentLoaded", () => {
-      function gabmurgerFunc(gamburderSelector, navigationSelector, itemsSelector) {
+    function gabmurgerFunc(gamburderSelector, navigationSelector, itemsSelector) {
 
-    const gamburger = document.querySelector(gamburderSelector);
-    const navigation = document.querySelector(navigationSelector);
-    const items = document.querySelectorAll(itemsSelector);
+      const gamburger = document.querySelector(gamburderSelector);
+      const navigation = document.querySelector(navigationSelector);
+      const items = document.querySelectorAll(itemsSelector);
 
-    let menuOpen = false;
-    gamburger.addEventListener('click', () => {
-      if (!menuOpen) {
-        gamburger.classList.add('open');
-        menuOpen = true;
-        navigation.classList.add('open');
-      } else {
-        gamburger.classList.remove('open');
-        menuOpen = false;
-        navigation.classList.remove('open');
-      }
-    });
-
-    items.forEach((item) => {
-      item.addEventListener("click", () => {
-        gamburger.classList.remove('open');
-        menuOpen = false;
-        navigation.classList.remove('open');
-      });
-    });
-  }
-  gabmurgerFunc(".gamburger", ".header-menu", ".header-menu__item");;
-
-    function scrollUp() {
-  let wrapper = document.querySelector('.wrapper');
-  let wrapperWidth = wrapper.clientWidth;
-
-  function checkWidth() {
-    wrapper = document.querySelector('.wrapper');
-    wrapperWidth = wrapper.clientWidth;
-  }
-
-  checkWidth();
-
-  window.addEventListener('resize', () => {
-    checkWidth();
-    scrollUpStyles();
-  });
-
-  function scrollUpStyles() {
-    if (wrapperWidth > 650) {
-
-      const offset = 500;
-      const scrollUp = document.querySelector(".scroll-up");
-      const scrollUpSvgPath = document.querySelector(".scroll-up__svg-path");
-      const pathLength = scrollUpSvgPath.getTotalLength();
-
-      scrollUpSvgPath.style.strokeDasharray = `${pathLength} ${pathLength}`;
-      scrollUpSvgPath.style.transition = 'stroke-dashoffset 20ms';
-
-      const getTop = () => window.pageYOffset || document.documentElement.scrollTop;
-
-      const updateDashoffset = () => {
-        const height = document.documentElement.scrollHeight - window.innerHeight;
-        const dashoffset = pathLength - (getTop() * pathLength / height);
-
-        scrollUpSvgPath.style.strokeDashoffset = dashoffset;
-      }
-
-      window.addEventListener("scroll", () => {
-        updateDashoffset();
-
-        if (getTop() > offset && wrapperWidth > 650) {
-          scrollUp.classList.add("scroll-up_active");
+      let menuOpen = false;
+      gamburger.addEventListener('click', () => {
+        if (!menuOpen) {
+          gamburger.classList.add('open');
+          menuOpen = true;
+          navigation.classList.add('open');
         } else {
-          scrollUp.classList.remove("scroll-up_active");
+          gamburger.classList.remove('open');
+          menuOpen = false;
+          navigation.classList.remove('open');
         }
       });
 
-      scrollUp.addEventListener('click', () => {
-        window.scrollTo({
-          top: 0,
-          behavior: 'smooth'
+      items.forEach((item) => {
+        item.addEventListener("click", () => {
+          gamburger.classList.remove('open');
+          menuOpen = false;
+          navigation.classList.remove('open');
         });
       });
-
-      updateDashoffset();
     }
-  }
+    gabmurgerFunc(".gamburger", ".header-menu", ".header-menu__item");;
 
-  scrollUpStyles();
-}
+    function scrollUp() {
+      let wrapper = document.querySelector('.wrapper');
+      let wrapperWidth = wrapper.clientWidth;
 
-scrollUp();;
+      function checkWidth() {
+        wrapper = document.querySelector('.wrapper');
+        wrapperWidth = wrapper.clientWidth;
+      }
+
+      checkWidth();
+
+      window.addEventListener('resize', () => {
+        checkWidth();
+        scrollUpStyles();
+      });
+
+      function scrollUpStyles() {
+        if (wrapperWidth > 650) {
+
+          const offset = 500;
+          const scrollUp = document.querySelector(".scroll-up");
+          const scrollUpSvgPath = document.querySelector(".scroll-up__svg-path");
+          const pathLength = scrollUpSvgPath.getTotalLength();
+
+          scrollUpSvgPath.style.strokeDasharray = `${pathLength} ${pathLength}`;
+          scrollUpSvgPath.style.transition = 'stroke-dashoffset 20ms';
+
+          const getTop = () => window.pageYOffset || document.documentElement.scrollTop;
+
+          const updateDashoffset = () => {
+            const height = document.documentElement.scrollHeight - window.innerHeight;
+            const dashoffset = pathLength - (getTop() * pathLength / height);
+
+            scrollUpSvgPath.style.strokeDashoffset = dashoffset;
+          }
+
+          window.addEventListener("scroll", () => {
+            updateDashoffset();
+
+            if (getTop() > offset && wrapperWidth > 650) {
+              scrollUp.classList.add("scroll-up_active");
+            } else {
+              scrollUp.classList.remove("scroll-up_active");
+            }
+          });
+
+          scrollUp.addEventListener('click', () => {
+            window.scrollTo({
+              top: 0,
+              behavior: 'smooth'
+            });
+          });
+
+          updateDashoffset();
+        }
+      }
+
+      scrollUpStyles();
+    }
+
+    scrollUp();;
 
     function openMoreText(itemsSelector, btnSelector, contentSelector) {
 
@@ -201,85 +201,115 @@ scrollUp();;
 
     slider(".slider-testimonial", ".slider-testimonial__track", ".testimonial__left-arrow", ".testimonial__right-arrow", ".slider-testimonial__item");
 
+    function outNumMinus(startNum, num, elem, stepNum, timeNum, delay, symbol = '', symbolright = true, needZero = true) {
+      const el = document.querySelector(elem);
 
-      const changeTabs = (itemsSelector, btnSelector, contentSelector, activeContent, activeBtn) => {
-    const itemsBlock = document.querySelector(itemsSelector);
-    const btn = document.querySelectorAll(btnSelector);
-    const content = document.querySelectorAll(contentSelector);
+      const time = +timeNum;
+      const step = +stepNum
 
-    function hideContent() {
-      content.forEach(item => {
-        item.classList.remove(activeContent);
-      });
-
-      btn.forEach(item => {
-        item.classList.remove(activeBtn);
-      });
-    }
-
-    function showContent(i = 0) {
-      content[i].classList.add(activeContent);
-      btn[i].classList.add(activeBtn);
-    }
-
-    hideContent();
-    showContent();
-
-    itemsBlock.addEventListener('click', (e) => {
-      const target = e.target;
-      if (target.classList.contains(btnSelector.replace(/\./, ""))) {
-        btn.forEach((item, i) => {
-          if (target == item) {
-            hideContent();
-            showContent(i);
+      let n = startNum;
+      if (el.classList.contains("no-was-Working")) {
+        setTimeout(() => {
+          if (el.classList.contains("_anim-active")) {
+            setTimeout(() => {
+              let timeOut = Math.round(time / num * step);
+              let interval = setInterval(() => {
+                n -= step;
+                if (n == num) {
+                  clearInterval(interval);
+                  if (symbolright) {
+                    el.innerText = num + symbol;
+                  } else {
+                    el.innerText = symbol + num;
+                  }
+                } else if (n < num) {
+                  clearInterval(interval)
+                  if (symbolright) {
+                    el.innerText = num + symbol;
+                  } else {
+                    el.innerText = symbol + num;
+                  }
+                } else {
+                  let nLenght = n.toString().length;
+                  let numLenght = num.toString().length;
+                  let zero = '0';
+                  if (numLenght > nLenght && needZero) {
+                    for (let i = 1; i < numLenght - nLenght; i++) {
+                      zero += '0';
+                    }
+                    if (symbolright) {
+                      el.innerText = zero + n + symbol;
+                    } else {
+                      el.innerText = symbol + zero + n;
+                    }
+                  } else {
+                    if (symbolright) {
+                      el.innerText = n + symbol;
+                    } else {
+                      el.innerText = symbol + n;
+                    }
+                  }
+                }
+              }, timeOut);
+            }, delay);
+            setTimeout(() => {
+              el.classList.remove("no-was-Working");
+            }, 350);
           }
-        });
+        }, 350);
       }
-    });
-  };
+    }
 
-  // changeTabs(".", ".", ".", "", "");;
+    outNumMinus(20, 14.99, "#plan-counter1", 1, 8500, 700, '$', false, false);
+    outNumMinus(40, 29.99, "#plan-counter2", 1, 8500, 700, '$', false, false);
+    outNumMinus(70, 54.99, "#plan-counter3", 1, 8500, 700, '$', false, false);
 
-      const animItems = document.querySelectorAll("._anim-items");
+    window.addEventListener("scroll", () => {
+      outNumMinus(20, 14.99, "#plan-counter1", 1, 8500, 700, '$', false, false);
+      outNumMinus(40, 29.99, "#plan-counter2", 1, 8500, 700, '$', false, false);
+      outNumMinus(70, 54.99, "#plan-counter3", 1, 8500, 700, '$', false, false);
+    });;
 
-  if (animItems.length > 0) {
-    window.addEventListener('scroll', animationScrolling);
+    const animItems = document.querySelectorAll("._anim-items");
 
-    function animationScrolling() {
-      for (let index = 0; index < animItems.length; index++) {
-        const animItem = animItems[index];
-        const animItemHeight = animItem.offsetHeight;
-        const animItemOffset = offsetFunc(animItem).top;
-        const animStart = 4;
+    if (animItems.length > 0) {
+      window.addEventListener('scroll', animationScrolling);
 
-        let animItemPoint = window.innerHeight - animItemHeight / animStart;
-        if (animItemHeight > window.innerHeight) {
-          animItemPoint = window.innerHeight - window.innerHeight / animStart;
-        }
+      function animationScrolling() {
+        for (let index = 0; index < animItems.length; index++) {
+          const animItem = animItems[index];
+          const animItemHeight = animItem.offsetHeight;
+          const animItemOffset = offsetFunc(animItem).top;
+          const animStart = 4;
 
-        if ((pageYOffset > animItemOffset - animItemPoint) && pageYOffset < (animItemOffset + animItemHeight)) {
-          animItem.classList.add("_anim-active");
-        } else {
-          if (!animItem.classList.contains('_active-no-hide')) {
-            animItem.classList.remove("_anim-active");
+          let animItemPoint = window.innerHeight - animItemHeight / animStart;
+          if (animItemHeight > window.innerHeight) {
+            animItemPoint = window.innerHeight - window.innerHeight / animStart;
+          }
+
+          if ((pageYOffset > animItemOffset - animItemPoint) && pageYOffset < (animItemOffset + animItemHeight)) {
+            animItem.classList.add("_anim-active");
+          } else {
+            if (!animItem.classList.contains('_active-no-hide')) {
+              animItem.classList.remove("_anim-active");
+            }
           }
         }
       }
-    }
 
-    function offsetFunc(el) {
-      const rect = el.getBoundingClientRect();
-      const scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
-      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      function offsetFunc(el) {
+        const rect = el.getBoundingClientRect();
+        const scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
 
-      return {
-        top: rect.top + scrollTop,
-        left: rect.left + scrollLeft
+        return {
+          top: rect.top + scrollTop,
+          left: rect.left + scrollLeft
+        }
       }
-    }
 
-    setTimeout(() => {
-      animationScrolling();
-    }, 300);
-  };
+      setTimeout(() => {
+        animationScrolling();
+      }, 300);
+    };
   })
